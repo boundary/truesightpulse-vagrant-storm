@@ -17,9 +17,9 @@ Prior to installation you need to obtain in your Boundary API Token.
 $ git clone https://github.com/boundary/truesightpulse-vagrant-storm
 ```
 
-2. Start the virtual machine using your Boundary API Token and Storm Version (optional):
+2. Start the virtual machine using your TrueSight Pulse API Token and Storm Version (optional):
 ```bash
-$ API_TOKEN=<TrueSight Pulse API Token> STORM_VERSION=<0.9.3 (default)> SCALA_VERSION=<2.10> vagrant up <virtual machine name>
+$ API_TOKEN=<TrueSight Pulse API Token> STORM_VERSION=<0.9.3 (default)> vagrant up <virtual machine name>
 ```
 NOTE: Run `vagrant status` to list the name of the virtual machines.
 
