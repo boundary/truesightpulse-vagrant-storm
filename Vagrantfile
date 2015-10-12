@@ -42,12 +42,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.vm.box = "puppetlabs/centos-6.6-64-puppet"
     v.vm.box_version = "1.0.1"
     v.vm.hostname = "centos-6-6"
+
+    v.vm.provision "shell", path: "bootstrap.sh"
   end
 
   config.vm.define "centos-7.0", autostart: false do |v|
     v.vm.box = "puppetlabs/centos-7.0-64-puppet"
     v.vm.box_version = "1.0.1"
     v.vm.hostname = "centos-7-0"
+
+    v.vm.provision "shell", path: "bootstrap.sh"
   end
 
   config.vm.define "ubuntu-12.04", autostart: false do |v|

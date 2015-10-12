@@ -50,7 +50,7 @@ node /^centos-7-0/ {
     path    => '/home/vagrant/.bash_profile',
     ensure  => file,
     source  => '/vagrant/manifests/bash_profile',
-    before => Class['zookeeper']
+    before => Package['epel-release']
   }
 
   exec { 'update-rpm-packages':
@@ -61,6 +61,13 @@ node /^centos-7-0/ {
   package {'epel-release':
     ensure => 'installed',
     require => Exec['update-rpm-packages'],
+    before => Class['java']
+  }
+
+  class { 'java':
+    distribution => 'jre',
+    before => Class['zookeeper'],
+    require => Exec['update-rpm-packages']
   }
 
   # Install Zookeeper at 127.0.0.1
@@ -70,12 +77,8 @@ node /^centos-7-0/ {
     service_name => 'zookeeper-server',
     initialize_datastore => true,
     client_ip => $::ipaddress_lo,
-    require => Exec['update-rpm-packages'],
-#    before => Class['storm']
+    require => Exec['update-rpm-packages']
   }
-
-  # TODO: Configure Storm
-
 }
 
 node /^centos/ {
@@ -84,12 +87,24 @@ node /^centos/ {
     path    => '/home/vagrant/.bash_profile',
     ensure  => file,
     source  => '/vagrant/manifests/bash_profile',
-    before => Class['kafka']
+    before => Package['epel-release']
   }
 
   exec { 'update-rpm-packages':
     command => '/usr/bin/yum update -y',
     timeout => 1800
+  }
+
+  package {'epel-release':
+    ensure => 'installed',
+    require => Exec['update-rpm-packages'],
+    before => Class['java']
+  }
+
+  class { 'java':
+    distribution => 'jre',
+    before => Class['zookeeper'],
+    require => Exec['update-rpm-packages']
   }
 
   # Install Zookeeper at 127.0.0.1
@@ -99,11 +114,8 @@ node /^centos/ {
     service_name => 'zookeeper-server',
     initialize_datastore => true,
     client_ip => $::ipaddress_lo,
-    require => Exec['update-rpm-packages'],
-    before => Class['storm']
+    require => Exec['update-rpm-packages']
   }
-
-  # TODO: Configure a Storm
 
   # Configure TrueSight Pulse meter
   class { 'boundary':
