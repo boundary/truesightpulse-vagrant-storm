@@ -12,6 +12,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.cpus = 2
   end
 
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
+
   #
   # Add the required puppet modules before provisioning is run by puppet
   #
