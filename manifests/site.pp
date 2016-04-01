@@ -57,6 +57,12 @@ node /^centos-7-0/ {
     command => '/usr/bin/yum update -y',
     timeout => 1800
   }
+  
+  package{'unzip': 
+    ensure => 'installed',
+    require =>Exec['update-rpm-packages'],
+    before => Class['java']
+  }
 
   package {'epel-release':
     ensure => 'installed',
@@ -94,6 +100,12 @@ node /^centos/ {
   exec { 'update-rpm-packages':
     command => '/usr/bin/yum update -y',
     timeout => 1800
+  }
+  
+  package{'unzip': 
+    ensure => 'installed',
+    require =>Exec['update-rpm-packages'],
+    before => Class['java']
   }
 
   package {'epel-release':
