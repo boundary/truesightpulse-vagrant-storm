@@ -73,6 +73,7 @@ node /^centos-7-0/ {
   # Install Zookeeper at 127.0.0.1
   class { 'zookeeper':
     repo => 'cloudera',
+    cdhver => '5',
     packages => ['zookeeper', 'zookeeper-server'],
     service_name => 'zookeeper-server',
     initialize_datastore => true,
@@ -110,6 +111,7 @@ node /^centos/ {
   # Install Zookeeper at 127.0.0.1
   class { 'zookeeper':
     repo => 'cloudera',
+    cdhver => '5',
     packages => ['zookeeper', 'zookeeper-server'],
     service_name => 'zookeeper-server',
     initialize_datastore => true,
