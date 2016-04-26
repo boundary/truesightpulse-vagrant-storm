@@ -1,4 +1,4 @@
-le API/syntax version. Don't touch unless you know what you're doing!
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
 #Main Block.
@@ -24,7 +24,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		v.vm.hostname = "centos-6-6"    
 	    
 		config.vm.provision :shell do |shell|
-			shell.inline = "puppet module install pennycoders-zookeeper;                   
+			shell.inline = "puppet module install puppetlabs-java;
+					puppet module install deric-zookeeper;                   
 					puppet module install boundary-boundary;
 					exit 0"
 		end
@@ -52,7 +53,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		v.vm.hostname = "centos-6-6"    
 		    
 		config.vm.provision :shell do |shell|
-			shell.inline = "puppet module install pennycoders-zookeeper;                   
+			shell.inline = "puppet module install puppetlabs-java;
+					puppet module install deric-zookeeper;                   
 					puppet module install boundary-boundary;
 					exit 0"
 		end
@@ -82,11 +84,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		
 		# Installing required puppet modules.
 		config.vm.provision :shell do |shell|
-			shell.inline = "puppet module install puppetlabs-stdlib;
-					puppet module install puppetlabs-apt;
-					puppet module install richardc-datacat;
-					puppet module install deric-zookeeper;
+			shell.inline = "puppet module install puppetlabs-apt;
 					puppet module install puppetlabs-java;
+					puppet module install deric-zookeeper;
 					puppet module install kupferk-storm;
 					puppet module install boundary-boundary;
 					exit 0"
@@ -115,11 +115,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			
 		# Installing required puppet modules.
 		config.vm.provision :shell do |shell|
-			shell.inline = "puppet module install puppetlabs-stdlib;
-					puppet module install puppetlabs-apt;
-					puppet module install richardc-datacat;
-					puppet module install deric-zookeeper;
+			shell.inline = "puppet module install puppetlabs-apt;
 					puppet module install puppetlabs-java;
+					puppet module install deric-zookeeper;
 					puppet module install kupferk-storm;
 					puppet module install boundary-boundary;
 					exit 0"
