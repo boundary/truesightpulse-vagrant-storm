@@ -2,9 +2,6 @@
 
 #This file is only for Centos - The service was not getting started.
 
-#Starting zookeeper service.
-/opt/zookeeper/bin/zkServer.sh start
-
 #Unpacking and installing Apache Storm from the zip file available with this repository.
 unzip -o -q /vagrant/storm-installer-0.9.3-1.el6.x86_64.zip -d /vagrant/
 sleep 20
