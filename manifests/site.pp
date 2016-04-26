@@ -21,7 +21,15 @@ node /^centos/
 	package {'epel-release':
   		ensure => 'installed',
   		require => Exec['update-rpm-packages'],
+		before => Class['java']
 	}
+
+	class { 'java':
+		distribution => 'jre',
+		before => Class['zookeeper'],
+		require => Exec['update-rpm-packages']
+  	}
+
   
 	# Used for unpacking storm for Centos.
 	package{'unzip': 
@@ -29,23 +37,20 @@ node /^centos/
 		require =>Exec['update-rpm-packages'],  
 	}
 
-	# Install Zookeeper at 127.0.0.1
-	class { 'zookeeper':    
-		service_name => 'zookeeper-server',
-		install_java => true,
-		java_package => 'java-1.8.0-openjdk',    
-		manage_service         => true,
-		manage_firewall        => false,
-		require => Exec['update-rpm-packages']
-	}
-  
-	#Creating zookeeper config file.
-	file { 'zoo.cfg':
-		path => '/opt/zookeeper/conf/zoo.cfg',
-		ensure => file,
-		source => '/opt/zookeeper/conf/zoo_sample.cfg'
-	}
 
+	# Install Zookeeper at 127.0.0.1
+	class { 'zookeeper':
+	    repo => 'cloudera',
+	    cdhver => '5',
+	    packages => ['zookeeper', 'zookeeper-server'],
+	    service_name => 'zookeeper-server',
+	    initialize_datastore => true,
+	    client_ip => $::ipaddress_lo,
+	    service_provider => 'redhat',
+	    require => Exec['update-rpm-packages']
+  	}
+
+  
 	# Configure TrueSight Pulse meter
 	class { 'boundary':
 		token => $::api_token
@@ -96,5 +101,4 @@ node /ubuntu/
 	}
 
 }
-
 
